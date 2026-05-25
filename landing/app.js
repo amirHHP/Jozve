@@ -1,79 +1,97 @@
-
 const translations = {
   en: {
     langBtn: 'فارسی',
+    navFeatures: 'Features',
+    navHow: 'How to use',
 
     heroTitle:
       'Capture knowledge before it disappears.',
 
     heroSubtitle:
-      'Jozve is a bilingual Chrome extension for capturing, organizing, and revisiting notes, ideas, and research.',
+      'Jozve helps you capture, organize, and revisit knowledge without leaving your browser.',
 
-    storyTitle: 'Why I built Jozve',
+    screensTitle:
+      'See Jozve in action',
+
+    storyTitle:
+      'Why I built Jozve',
 
     storyText:
-      'I constantly collect ideas, references, articles, and fleeting thoughts while browsing. Most tools felt too heavy or too disconnected from the browsing workflow. Jozve was built as a lightweight personal knowledge layer that stays close to the browser.',
+      'I constantly collect ideas, references, research notes, and fleeting thoughts while browsing. Most tools felt too heavy or too disconnected from the actual workflow. So I built Jozve.',
 
-    featuresTitle: 'Features',
+    howTitle:
+      'How to use',
 
-    howTitle: 'How to use',
+    ctaTitle:
+      'Explore the project',
 
-    ctaTitle: 'Explore the project',
+    githubBtn:
+      'View GitHub',
 
-    githubBtn: 'View GitHub',
+    howBtn:
+      'How to use',
 
-    howBtn: 'How to use',
-
-    featureCards: [
-      'Quick Capture Popup',
-      'Full Dashboard Workspace',
-      'Source & Category Filters',
-      'Dark / Light Mode',
-      'English / Persian Support',
-      'Offline-first Storage',
+    miniFeatures: [
+      'Quick Capture',
+      'Bilingual',
+      'Dark / Light',
+      'Offline-first',
     ],
 
     steps: [
-      'Clone or download the GitHub repository',
+      'Download or clone the repository',
       'Open Chrome Extensions',
       'Enable Developer Mode',
       'Click Load unpacked',
       'Select the extension folder',
       'Start capturing knowledge',
     ],
+
+    images: {
+      hero: './assets/create-note-en.png',
+      screen1: './assets/create-note-en.png',
+      screen2: './assets/dashboard-light-en.png',
+      screen3: './assets/dashboard-dark-en.png',
+    },
   },
 
   fa: {
     langBtn: 'EN',
+    navFeatures: 'ویژگی‌ها',
+    navHow: 'روش استفاده',
 
     heroTitle:
       'دانش و ایده‌ها را قبل از فراموش شدن ثبت کنید.',
 
     heroSubtitle:
-      'جزوه یک افزونه کروم دو زبانه برای ثبت، سازماندهی و مرور دوباره یادداشت‌ها، ایده‌ها و دانش شخصی شماست.',
+      'جزوه به شما کمک می‌کند بدون خروج از مرورگر، دانش، یادداشت‌ها و ایده‌های خود را ثبت، سازماندهی و مرور کنید.',
 
-    storyTitle: 'چرا جزوه را ساختم',
+    screensTitle:
+      'جزوه در عمل',
+
+    storyTitle:
+      'چرا جزوه را ساختم',
 
     storyText:
-      'من دائماً هنگام وب‌گردی ایده‌ها، منابع، مقاله‌ها و فکرهای لحظه‌ای را جمع می‌کنم. بیشتر ابزارها یا بیش از حد سنگین بودند یا از جریان واقعی کار فاصله داشتند. جزوه را به‌عنوان یک لایه سبک مدیریت دانش ساختم که کنار مرورگر بماند.',
+      'من دائماً هنگام وب‌گردی ایده‌ها، منابع، یادداشت‌های تحقیقاتی و فکرهای لحظه‌ای را جمع می‌کنم. بیشتر ابزارها یا بیش از حد سنگین بودند یا از جریان واقعی کار فاصله داشتند. برای همین جزوه را ساختم.',
 
-    featuresTitle: 'ویژگی‌ها',
+    howTitle:
+      'روش استفاده',
 
-    howTitle: 'روش استفاده',
+    ctaTitle:
+      'مشاهده پروژه',
 
-    ctaTitle: 'مشاهده پروژه',
+    githubBtn:
+      'مشاهده گیت‌هاب',
 
-    githubBtn: 'مشاهده گیت‌هاب',
+    howBtn:
+      'روش استفاده',
 
-    howBtn: 'روش استفاده',
-
-    featureCards: [
-      'ثبت سریع از طریق پاپ‌آپ',
-      'داشبورد کامل مدیریت یادداشت',
-      'فیلتر بر اساس منبع و دسته‌بندی',
-      'حالت تاریک و روشن',
-      'پشتیبانی فارسی و انگلیسی',
-      'ذخیره‌سازی آفلاین',
+    miniFeatures: [
+      'ثبت سریع',
+      'دو زبانه',
+      'حالت روشن / تاریک',
+      'ذخیره آفلاین',
     ],
 
     steps: [
@@ -84,6 +102,13 @@ const translations = {
       'پوشه افزونه را انتخاب کنید',
       'شروع به ثبت دانش کنید',
     ],
+
+    images: {
+      hero: './assets/create-note-fa.png',
+      screen1: './assets/create-note-fa.png',
+      screen2: './assets/dashboard-light-fa.png',
+      screen3: './assets/dashboard-dark-fa.png',
+    },
   },
 };
 
@@ -92,11 +117,23 @@ let currentLang = 'en';
 const applyLanguage = () => {
   const t = translations[currentLang];
 
+  document.getElementById('langToggle').textContent =
+    t.langBtn;
+
+  document.getElementById('navFeatures').textContent =
+    t.navFeatures;
+
+  document.getElementById('navHow').textContent =
+    t.navHow;
+
   document.getElementById('heroTitle').textContent =
     t.heroTitle;
 
   document.getElementById('heroSubtitle').textContent =
     t.heroSubtitle;
+
+  document.getElementById('screensTitle').textContent =
+    t.screensTitle;
 
   document.getElementById('storyTitle').textContent =
     t.storyTitle;
@@ -104,28 +141,22 @@ const applyLanguage = () => {
   document.getElementById('storyText').textContent =
     t.storyText;
 
-  document.getElementById('featuresTitle').textContent =
-    t.featuresTitle;
-
   document.getElementById('howTitle').textContent =
     t.howTitle;
 
   document.getElementById('ctaTitle').textContent =
     t.ctaTitle;
 
-  document.getElementById('langToggle').textContent =
-    t.langBtn;
-
-  document.querySelector('.primary-btn').textContent =
+  document.getElementById('githubBtn').textContent =
     t.githubBtn;
 
-  document.querySelector('.secondary-btn').textContent =
+  document.getElementById('howBtn').textContent =
     t.howBtn;
 
   document
-    .querySelectorAll('.feature-card')
-    .forEach((card, i) => {
-      card.textContent = t.featureCards[i];
+    .querySelectorAll('.mini-feature')
+    .forEach((item, i) => {
+      item.textContent = t.miniFeatures[i];
     });
 
   document
@@ -134,12 +165,26 @@ const applyLanguage = () => {
       step.textContent = t.steps[i];
     });
 
+  document.getElementById('heroPreview').src =
+    t.images.hero;
+
+  document.getElementById('screen1').src =
+    t.images.screen1;
+
+  document.getElementById('screen2').src =
+    t.images.screen2;
+
+  document.getElementById('screen3').src =
+    t.images.screen3;
+
   if (currentLang === 'fa') {
     document.body.classList.add('rtl');
+    document.documentElement.lang = 'fa';
     document.querySelector('.brand').textContent =
       'جزوه';
   } else {
     document.body.classList.remove('rtl');
+    document.documentElement.lang = 'en';
     document.querySelector('.brand').textContent =
       'Jozve';
   }
@@ -149,7 +194,9 @@ document
   .getElementById('langToggle')
   .addEventListener('click', () => {
     currentLang =
-      currentLang === 'en' ? 'fa' : 'en';
+      currentLang === 'en'
+        ? 'fa'
+        : 'en';
 
     applyLanguage();
   });
