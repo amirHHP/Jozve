@@ -1,1 +1,129 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
+  <title>Jozve</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+
+<body>
+  <div id="app">
+    <header class="topbar">
+      <div class="brand">Jozve</div>
+
+      <button id="langToggle" class="lang-toggle">
+        فارسی
+      </button>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-content">
+          <p class="eyebrow">Personal Knowledge Workspace</p>
+
+          <h1 id="heroTitle">
+            Capture knowledge before it disappears.
+          </h1>
+
+          <p id="heroSubtitle" class="hero-subtitle">
+            Jozve is a bilingual Chrome extension for capturing,
+            organizing, and revisiting notes, ideas, and research.
+          </p>
+
+          <div class="hero-actions">
+            <a
+              href="https://github.com/fatemehloni/Jozve"
+              target="_blank"
+              class="primary-btn"
+            >
+              View GitHub
+            </a>
+
+            <a
+              href="#how"
+              class="secondary-btn"
+            >
+              How to use
+            </a>
+          </div>
+        </div>
+
+        <div class="hero-preview">
+          <div class="mock-window">
+            <div class="mock-header"></div>
+            <div class="mock-card"></div>
+            <div class="mock-card"></div>
+            <div class="mock-card"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="story">
+        <h2 id="storyTitle">Why I built Jozve</h2>
+
+        <p id="storyText">
+          I constantly collect ideas, references, articles, and fleeting
+          thoughts while browsing. Most tools felt too heavy or too far
+          from the actual workflow. Jozve was built as a lightweight
+          personal knowledge layer that stays close to the browser.
+        </p>
+      </section>
+
+      <section class="features">
+        <h2 id="featuresTitle">Features</h2>
+
+        <div class="feature-grid">
+          <div class="feature-card">Quick Capture Popup</div>
+          <div class="feature-card">Full Dashboard Workspace</div>
+          <div class="feature-card">Source & Category Filters</div>
+          <div class="feature-card">Dark / Light Mode</div>
+          <div class="feature-card">English / Persian Support</div>
+          <div class="feature-card">Offline-first Storage</div>
+        </div>
+      </section>
+
+      <section id="how" class="how">
+        <h2 id="howTitle">How to use</h2>
+
+        <ol class="steps">
+          <li>Clone or download the GitHub repository</li>
+          <li>Open Chrome Extensions</li>
+          <li>Enable Developer Mode</li>
+          <li>Click Load unpacked</li>
+          <li>Select the extension folder</li>
+          <li>Start capturing knowledge</li>
+        </ol>
+      </section>
+
+      <section class="footer-cta">
+        <h2 id="ctaTitle">Explore the project</h2>
+
+        <a
+          href="https://github.com/fatemehloni/Jozve"
+          target="_blank"
+          class="primary-btn"
+        >
+          Open GitHub Repository
+        </a>
+      </section>
+    </main>
+  </div>
+
+  <script src="./app.js"></script>
+</body>
+</html>
