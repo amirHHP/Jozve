@@ -8,8 +8,8 @@ html {
 
 body {
   margin: 0;
-  background: #0b1220;
-  color: white;
+  background: #ffffff;
+  color: #0f172a;
   font-family: Calibri, sans-serif;
   transition: 0.25s ease;
 }
@@ -55,14 +55,14 @@ img {
 }
 
 .top-nav a {
-  color: #94a3b8;
+  color: #475569;
   font-size: 14px;
 }
 
 .lang-toggle {
   background: transparent;
-  border: 1px solid rgba(255,255,255,0.08);
-  color: white;
+  border: 1px solid #e2e8f0;
+  color: #0f172a;
   padding: 10px 16px;
   border-radius: 999px;
   cursor: pointer;
@@ -84,7 +84,7 @@ main {
 }
 
 .eyebrow {
-  color: #94a3b8;
+  color: #64748b;
   font-size: 12px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -98,7 +98,7 @@ main {
 }
 
 .hero-subtitle {
-  color: #94a3b8;
+  color: #475569;
   font-size: 19px;
   line-height: 1.75;
   max-width: 560px;
@@ -119,9 +119,9 @@ main {
 }
 
 .secondary-btn {
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.06);
-  color: white;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  color: #0f172a;
   padding: 14px 22px;
   border-radius: 14px;
 }
@@ -134,8 +134,8 @@ main {
 .hero-preview img {
   max-width: 680px;
   border-radius: 24px;
-  border: 1px solid rgba(255,255,255,0.06);
-  box-shadow: 0 30px 100px rgba(0,0,0,0.45);
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 24px 80px rgba(124, 58, 237, 0.12);
 }
 
 section {
@@ -158,10 +158,11 @@ section h2 {
 }
 
 .screen-card {
-  background: #111827;
-  border: 1px solid rgba(255,255,255,0.05);
+  background: white;
+  border: 1px solid #e2e8f0;
   border-radius: 22px;
   padding: 14px;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.04);
 }
 
 .screen-card img {
@@ -173,7 +174,7 @@ section h2 {
 }
 
 .story p {
-  color: #94a3b8;
+  color: #475569;
   font-size: 20px;
   line-height: 1.9;
   margin-top: 20px;
@@ -186,11 +187,11 @@ section h2 {
 }
 
 .mini-feature {
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.05);
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
   padding: 14px 18px;
   border-radius: 999px;
-  color: #cbd5e1;
+  color: #475569;
   font-size: 14px;
 }
 
@@ -207,7 +208,7 @@ section h2 {
 }
 
 .steps li {
-  color: #94a3b8;
+  color: #475569;
   font-size: 18px;
   line-height: 1.7;
 }
@@ -237,10 +238,15 @@ body.rtl .hero-content {
 }
 
 body.rtl .hero h1 {
+  font-size: 56px;
+  line-height: 1.35;
+  max-width: 700px;
   margin-left: auto;
 }
 
 body.rtl .hero-subtitle {
+  font-size: 18px;
+  line-height: 2;
   margin-left: auto;
 }
 
@@ -269,5 +275,9 @@ body.rtl .steps {
 
   .hero-actions {
     flex-direction: column;
+  }
+
+  body.rtl .hero h1 {
+    font-size: 42px;
   }
 }
