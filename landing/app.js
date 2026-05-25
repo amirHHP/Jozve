@@ -1,14 +1,15 @@
 const translations = {
   en: {
     langBtn: 'فارسی',
+    eyebrow: 'Personal Knowledge Workspace',
     navFeatures: 'Features',
     navHow: 'How to use',
 
     heroTitle:
-      'Capture knowledge before it disappears.',
+      'Never lose an idea or note again. Capture it quickly, right where you work.',
 
     heroSubtitle:
-      'Jozve helps you capture, organize, and revisit knowledge without leaving your browser.',
+      'Jozve is a Chrome extension I designed to capture notes, research, and fleeting ideas without interrupting the natural flow of browsing.',
 
     screensTitle:
       'See Jozve in action',
@@ -17,16 +18,16 @@ const translations = {
       'Why I built Jozve',
 
     storyText:
-      'I constantly collect ideas, references, research notes, and fleeting thoughts while browsing. Most tools felt too heavy or too disconnected from the actual workflow. So I built Jozve.',
+      'I wanted a place to keep my notes organized by source and category—something that feels more like a digital notebook built around the way I actually read and browse. I also wanted it to be lightweight, offline, and always within reach—something that helps learning instead of interrupting it.',
 
     howTitle:
       'How to use',
 
     ctaTitle:
-      'Explore the project',
+      'View project on GitHub',
 
     githubBtn:
-      'View GitHub',
+      'View project on GitHub',
 
     howBtn:
       'How to use',
@@ -57,14 +58,15 @@ const translations = {
 
   fa: {
     langBtn: 'EN',
+    eyebrow: 'فضای شخصی دانش',
     navFeatures: 'ویژگی‌ها',
     navHow: 'روش استفاده',
 
     heroTitle:
-      'دانش و ایده‌ها را قبل از فراموش شدن ثبت کنید.',
+      'با جزوه، هیچ ایده یا یادداشتی را از دست ندهید؛ سریع ثبت کنید و همیشه کنار خودتان داشته باشید.',
 
     heroSubtitle:
-      'جزوه به شما کمک می‌کند بدون خروج از مرورگر، دانش، یادداشت‌ها و ایده‌های خود را ثبت، سازماندهی و مرور کنید.',
+      'جزوه افزونه‌ای است که برای ثبت سریع یادداشت‌ها، تحقیقات و ایده‌های لحظه‌ای طراحی کردم؛ بدون اینکه جریان طبیعی مطالعه و وب‌گردی را مختل کند.',
 
     screensTitle:
       'جزوه در عمل',
@@ -73,16 +75,16 @@ const translations = {
       'چرا جزوه را ساختم',
 
     storyText:
-      'من دائماً هنگام وب‌گردی ایده‌ها، منابع، یادداشت‌های تحقیقاتی و فکرهای لحظه‌ای را جمع می‌کنم. بیشتر ابزارها یا بیش از حد سنگین بودند یا از جریان واقعی کار فاصله داشتند. برای همین جزوه را ساختم.',
+      'همیشه دوست داشتم جایی داشته باشم که یادداشت‌هایم را بر اساس منبع و دسته‌بندی کنار هم نگه دارم؛ چیزی شبیه یک دفترچه یادداشت دیجیتال که واقعاً با سبک مطالعه و وب‌گردی من جور باشد. همین‌طور برایم مهم بود که این ابزار سبک، آفلاین و همیشه دم دست باشد؛ چیزی که وسط یادگیری مزاحم نشود، بلکه کمکم کند.',
 
     howTitle:
       'روش استفاده',
 
     ctaTitle:
-      'مشاهده پروژه',
+      'مشاهده پروژه در گیت‌هاب',
 
     githubBtn:
-      'مشاهده گیت‌هاب',
+      'مشاهده پروژه در گیت‌هاب',
 
     howBtn:
       'روش استفاده',
@@ -119,6 +121,9 @@ const applyLanguage = () => {
 
   document.getElementById('langToggle').textContent =
     t.langBtn;
+
+  document.getElementById('eyebrowText').textContent =
+    t.eyebrow;
 
   document.getElementById('navFeatures').textContent =
     t.navFeatures;
