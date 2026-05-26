@@ -7,7 +7,7 @@
     <title>Jozve Dashboard</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
@@ -18,12 +18,14 @@
           <p id="brand-subtitle">Your knowledge workspace</p>
         </div>
 
-        <button class="lang-toggle" id="lang-toggle-btn">
-          <span class="active" id="lang-span-en">EN</span>
-          <span id="lang-span-fa">فا</span>
-        </button>
-        
-        <button class="theme-toggle" id="theme-toggle-btn">☀️</button>
+        <div class="sidebar-controls">
+          <button class="lang-toggle" id="lang-toggle-btn">
+            <span class="active" id="lang-span-en">EN</span>
+            <span id="lang-span-fa">فا</span>
+          </button>
+          
+          <button class="theme-toggle" id="theme-toggle-btn">☀️</button>
+        </div>
 
         <nav class="nav" id="sidebar-nav">
           <button class="active" id="nav-all-btn">All Notes</button>
