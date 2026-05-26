@@ -2,11 +2,107 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Jozve Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div id="dashboard-root"></div>
-    <script type="module" src="/src/dashboard-main.jsx"></script>
+    <div class="dashboard dark" id="dashboard-container">
+      <aside class="sidebar" id="sidebar">
+        <div class="brand">
+          <h1 id="brand-title">Jozve</h1>
+          <p id="brand-subtitle">Your knowledge workspace</p>
+        </div>
+
+        <button class="lang-toggle" id="lang-toggle-btn">
+          <span class="active" id="lang-span-en">EN</span>
+          <span id="lang-span-fa">فا</span>
+        </button>
+        
+        <button class="theme-toggle" id="theme-toggle-btn">☀️</button>
+
+        <nav class="nav" id="sidebar-nav">
+          <button class="active" id="nav-all-btn">All Notes</button>
+          <button id="nav-recent-btn">Recent</button>
+          
+          <div class="sidebar-section-title" id="sources-sec-title">Sources</div>
+          <div class="sidebar-dynamic-list" id="sources-list"></div>
+          
+          <div class="sidebar-section-title" id="categories-sec-title">Categories</div>
+          <div class="sidebar-dynamic-list" id="categories-list"></div>
+        </nav>
+      </aside>
+
+      <main class="main">
+        <div class="dashboard-topbar">
+          <div class="dashboard-title">
+            <h2 id="dashboard-header-title">Jozve Dashboard</h2>
+            <p id="notes-count-label">0 notes saved</p>
+          </div>
+
+          <div class="dashboard-actions">
+            <div class="dashboard-search">
+              <input class="search-input" placeholder="Search notes..." id="search-input" />
+            </div>
+            <button class="quick-add-btn" id="quick-add-btn">+ Note</button>
+          </div>
+        </div>
+
+        <div class="composer-card" id="composer-card">
+          <button class="composer-collapsed" id="composer-collapsed-btn">Take a note...</button>
+          <div class="composer-expanded" id="composer-expanded-view" style="display: none;">
+            <input class="composer-input" placeholder="Source" id="composer-source" />
+            <input class="composer-input" placeholder="Category" id="composer-category" />
+            <textarea class="composer-textarea" placeholder="Write your note..." id="composer-note"></textarea>
+            <div class="composer-actions">
+              <button class="composer-cancel" id="composer-cancel-btn">Close</button>
+              <button class="composer-save" id="composer-save-btn">Save Note</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="cards-grid" id="cards-grid"></div>
+      </main>
+    </div>
+
+    <!-- Note Detail Modal -->
+    <div class="note-modal-overlay" id="note-modal-overlay" style="display: none;">
+      <div class="note-modal">
+        <div class="note-modal-header">
+          <div>
+            <div class="card-label" id="modal-source-label">Source</div>
+            <div class="source-value" id="modal-source-val">Source Name</div>
+          </div>
+          <button class="modal-close" id="modal-close-btn">✕</button>
+        </div>
+        <div class="note-modal-category" id="modal-category-val">Category Name</div>
+        <div class="note-modal-content" id="modal-note-content">Note content goes here...</div>
+        <div class="note-modal-footer">
+          <span class="timestamp" id="modal-timestamp-val">Date</span>
+          <div class="card-actions">
+            <button class="ghost-btn" id="modal-edit-btn">Edit</button>
+            <button class="danger-btn" id="modal-delete-btn">Delete</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Filter Modal (Show All Sources/Categories) -->
+    <div class="note-modal-overlay" id="filter-modal-overlay" style="display: none;">
+      <div class="note-modal">
+        <div class="note-modal-header">
+          <h3 id="filter-modal-title">All Sources</h3>
+          <button class="modal-close" id="filter-modal-close-btn">✕</button>
+        </div>
+        <input class="search-input" placeholder="Search..." id="filter-modal-search" />
+        <div class="filter-modal-list" id="filter-modal-list"></div>
+      </div>
+    </div>
+
+    <script src="dashboard.js"></script>
   </body>
 </html>

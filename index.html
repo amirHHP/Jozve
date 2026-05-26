@@ -4,25 +4,33 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React</title>
-    <link
-  rel="preconnect"
-  href="https://fonts.googleapis.com"
-/>
-
-<link
-  rel="preconnect"
-  href="https://fonts.gstatic.com"
-  crossorigin
-/>
-
-<link
-  href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700&display=swap"
-  rel="stylesheet"
-/>
+    <title>Jozve - Quick Capture</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
+    <div class="popup-app dark" id="popup-container">
+      <div class="popup-header">
+        <div>
+          <h2>Jozve</h2>
+          <p id="popup-subtitle">Quick Capture</p>
+        </div>
+        <button class="lang-btn" id="lang-btn">فارسی</button>
+      </div>
+
+      <input class="popup-input" placeholder="Source" id="popup-source" />
+      <input class="popup-input" placeholder="Category" id="popup-category" />
+      <textarea class="popup-textarea" placeholder="Write your note..." id="popup-note"></textarea>
+
+      <div class="popup-actions">
+        <button class="popup-secondary" id="dashboard-btn">Dashboard</button>
+        <button class="popup-primary" id="save-btn">Save Note</button>
+      </div>
+
+      <div class="toast" id="toast" style="display: none;">Saved ✓</div>
+    </div>
+    <script src="popup.js"></script>
   </body>
 </html>
