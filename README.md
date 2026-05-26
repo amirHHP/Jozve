@@ -1,16 +1,35 @@
-# React + Vite
+# Jozve (جزوه) - Personal Knowledge Workspace
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Jozve is an offline-first Chrome Extension designed to capture notes, research, and fleeting ideas quickly right where you work, without interrupting the natural flow of browsing.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Quick Capture**: Instantly capture selected text, annotations, and quick notes directly from your browser.
+- **Bilingual Support**: Fully localized in English (LTR) and Persian/Farsi (RTL).
+- **Theme Modes**: Supports both Light and Dark theme modes.
+- **Offline-First & Private**: All data is stored locally in Chrome Storage (`chrome.storage`). No remote servers, ensuring 100% privacy.
+- **Dashboard Workspace**: Organize, review, search, and manage your saved notes in a central dashboard.
 
-## React Compiler
+## Installation (Developer Mode)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+To run this extension locally in your browser:
 
-## Expanding the ESLint configuration
+1. **Clone or Download** this repository to your machine.
+2. Open Google Chrome and navigate to `chrome://extensions`.
+3. Enable **Developer mode** using the toggle switch in the top-right corner.
+4. Click the **Load unpacked** button in the top-left corner.
+5. Select the root folder of this repository (containing `manifest.json`).
+6. The Jozve extension icon should now appear in your browser's extension list!
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Landing Page & Deployment
+
+The landing page of the project is located in the `/landing` directory. 
+
+### Deploying to GitHub Pages
+
+This project is configured with a GitHub Actions workflow (`.github/workflows/deploy.yml`) to automatically publish the landing page to GitHub Pages whenever changes are pushed to the `main` branch.
+
+To enable this:
+1. Go to your repository settings on GitHub: **Settings > Pages**.
+2. Under **Build and deployment > Source**, select **GitHub Actions** (instead of *Deploy from a branch*).
+3. The next time you push to the `main` branch, the landing page will automatically deploy to `https://<username>.github.io/Jozve/`.
