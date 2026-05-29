@@ -4,14 +4,14 @@ const translations = {
     all: 'All Notes',
     recent: 'Recent',
     sources: 'Sources',
-    categories: 'Categories',
+    categories: 'Tags',
     search: 'Search notes...',
     emptyTitle: 'No notes yet ✨',
-    emptyText: 'Start capturing ideas with Jozve',
+    emptyText: 'Start capturing ideas with DropIt',
     source: 'Source',
-    category: 'Category',
+    category: 'Tag',
     noSource: 'No source',
-    noCategory: 'No category',
+    noCategory: 'Untagged',
     edit: 'Edit',
     delete: 'Delete',
     notesSaved: 'notes saved',
@@ -34,14 +34,14 @@ const translations = {
     all: 'همه یادداشت‌ها',
     recent: 'اخیر',
     sources: 'منابع',
-    categories: 'دسته‌بندی‌ها',
+    categories: 'تگ‌ها',
     search: 'جستجو در یادداشت‌ها...',
     emptyTitle: 'هنوز یادداشتی نداری ✨',
-    emptyText: 'شروع کن به ذخیره ایده‌ها با Jozve',
+    emptyText: 'شروع کن به ذخیره ایده‌ها با DropIt',
     source: 'منبع',
-    category: 'دسته‌بندی',
+    category: 'تگ',
     noSource: 'بدون منبع',
-    noCategory: 'بدون دسته‌بندی',
+    noCategory: 'بدون تگ',
     edit: 'ویرایش',
     delete: 'حذف',
     notesSaved: 'یادداشت ذخیره شده',
@@ -157,7 +157,7 @@ function updateUI() {
   navRecentBtn.textContent = getTranslation('recent');
   sourcesSecTitle.textContent = getTranslation('sources');
   categoriesSecTitle.textContent = getTranslation('categories');
-  dashboardHeaderTitle.textContent = language === 'fa' ? 'داشبورد جزوه' : 'Jozve Dashboard';
+  dashboardHeaderTitle.textContent = language === 'fa' ? 'داشبورد DropIt' : 'DropIt Dashboard';
   searchInput.placeholder = getTranslation('search');
   quickAddBtn.textContent = language === 'fa' ? '＋ یادداشت' : '+ Note';
   composerCollapsedBtn.textContent = getTranslation('takeNote');
@@ -210,15 +210,27 @@ function getGroupedSources() {
   }, {});
 }
 
-// Group notes by category
+// Group notes by tags (supporting multiple tags array with legacy category fallback)
 function getGroupedCategories() {
   const noCategoryLabel = getTranslation('noCategory');
-  return notes.reduce((acc, n) => {
-    const cat = n.category || noCategoryLabel;
-    acc[cat] = acc[cat] || [];
-    acc[cat].push(n);
-    return acc;
-  }, {});
+  const groups = {};
+  notes.forEach(n => {
+    let noteTags = [];
+    if (Array.isArray(n.tags) && n.tags.length > 0) {
+      noteTags = n.tags;
+    } else if (n.category && n.category.trim().length > 0) {
+      noteTags = [n.category];
+    } else {
+      noteTags = [noCategoryLabel];
+    }
+
+    noteTags.forEach(tag => {
+      const cleanTag = tag.trim();
+      groups[cleanTag] = groups[cleanTag] || [];
+      groups[cleanTag].push(n);
+    });
+  });
+  return groups;
 }
 
 // Render the sidebar filters
@@ -277,7 +289,19 @@ function createSidebarItemButton(type, name, count) {
 
   const labelSpan = document.createElement('span');
   labelSpan.className = 'truncate-label';
-  labelSpan.textContent = name;
+  labelSpan.style.display = 'inline-flex';
+  labelSpan.style.alignItems = 'center';
+  labelSpan.style.gap = '6px';
+  if (type === 'categories') {
+    labelSpan.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="10" height="10" fill="none" style="flex-shrink:0;">
+        <path d="M50 12 C50 12, 85 45, 85 65 A35 35 0 1 1 15 65 C15 45, 50 12, 50 12 Z" fill="currentColor" />
+      </svg>
+      <span>${name}</span>
+    `;
+  } else {
+    labelSpan.textContent = name;
+  }
   container.appendChild(labelSpan);
 
   const actionsDiv = document.createElement('div');
@@ -337,7 +361,17 @@ function applyNotesFiltering() {
     baseNotes = baseNotes.filter(n => (n.source || noSourceLabel) === currentFilterValue);
   } else if (currentFilter.type === 'categories') {
     const noCategoryLabel = getTranslation('noCategory');
-    baseNotes = baseNotes.filter(n => (n.category || noCategoryLabel) === currentFilterValue);
+    baseNotes = baseNotes.filter(n => {
+      let noteTags = [];
+      if (Array.isArray(n.tags) && n.tags.length > 0) {
+        noteTags = n.tags;
+      } else if (n.category && n.category.trim().length > 0) {
+        noteTags = [n.category];
+      } else {
+        noteTags = [noCategoryLabel];
+      }
+      return noteTags.some(t => t.trim() === currentFilterValue);
+    });
   }
 
   // Apply Search Query Filter
@@ -345,7 +379,8 @@ function applyNotesFiltering() {
     baseNotes = baseNotes.filter(n => 
       (n.note || '').toLowerCase().includes(query) ||
       (n.source || '').toLowerCase().includes(query) ||
-      (n.category || '').toLowerCase().includes(query)
+      (n.category || '').toLowerCase().includes(query) ||
+      (Array.isArray(n.tags) && n.tags.some(t => t.toLowerCase().includes(query)))
     );
   }
 
@@ -391,10 +426,28 @@ function renderNotesGrid() {
     `;
     header.appendChild(sourceDiv);
 
-    const categoryPill = document.createElement('div');
-    categoryPill.className = 'category-pill';
-    categoryPill.textContent = item.category || getTranslation('noCategory');
-    header.appendChild(categoryPill);
+    const tagsContainer = document.createElement('div');
+    tagsContainer.className = 'card-tags-container';
+    tagsContainer.style.display = 'flex';
+    tagsContainer.style.flexWrap = 'wrap';
+    tagsContainer.style.gap = '6px';
+
+    let noteTags = [];
+    if (Array.isArray(item.tags) && item.tags.length > 0) {
+      noteTags = item.tags;
+    } else if (item.category && item.category.trim().length > 0) {
+      noteTags = [item.category];
+    } else {
+      noteTags = [getTranslation('noCategory')];
+    }
+
+    noteTags.forEach(tag => {
+      const pill = document.createElement('div');
+      pill.className = 'category-pill';
+      pill.textContent = tag;
+      tagsContainer.appendChild(pill);
+    });
+    header.appendChild(tagsContainer);
 
     card.appendChild(header);
 
@@ -463,7 +516,15 @@ function openComposer() {
 function startEditingNote(item) {
   editingId = item.id;
   composerSource.value = item.source || '';
-  composerCategory.value = item.category || '';
+  
+  let noteTags = [];
+  if (Array.isArray(item.tags) && item.tags.length > 0) {
+    noteTags = item.tags;
+  } else if (item.category && item.category.trim().length > 0) {
+    noteTags = [item.category];
+  }
+  composerCategory.value = noteTags.join(', ');
+  
   composerNote.value = item.note || '';
   openComposer();
   updateUI();
@@ -477,14 +538,18 @@ function saveNote() {
 
   const srcText = composerSource.value.trim();
   const catText = composerCategory.value.trim();
+  const tagsArray = catText.split(',')
+    .map(t => t.trim())
+    .filter(t => t.length > 0);
 
   if (editingId) {
-    notes = notes.map(n => n.id === editingId ? { ...n, source: srcText, category: catText, note: noteText } : n);
+    notes = notes.map(n => n.id === editingId ? { ...n, source: srcText, tags: tagsArray, category: tagsArray[0] || '', note: noteText } : n);
   } else {
     notes.unshift({
       id: Date.now(),
       source: srcText,
-      category: catText,
+      tags: tagsArray,
+      category: tagsArray[0] || '',
       note: noteText,
       createdAt: new Date().toISOString()
     });
@@ -504,11 +569,11 @@ function deleteNote(id) {
   });
 }
 
-// Rename Group (source or category)
+// Rename Group (source or tag)
 function renameGroup(type, oldName) {
   const promptMsg = language === 'fa' 
-    ? (type === 'sources' ? 'نام جدید منبع:' : 'نام جدید دسته‌بندی:')
-    : (type === 'sources' ? 'New source name:' : 'New category name:');
+    ? (type === 'sources' ? 'نام جدید منبع:' : 'نام جدید تگ:')
+    : (type === 'sources' ? 'New source name:' : 'New tag name:');
     
   const next = prompt(promptMsg, oldName);
   if (!next || !next.trim()) return;
@@ -524,8 +589,17 @@ function renameGroup(type, oldName) {
   } else {
     const noCategoryLabel = getTranslation('noCategory');
     notes = notes.map(n => {
-      const match = (n.category || noCategoryLabel) === oldName;
-      return match ? { ...n, category: nextName } : n;
+      let noteTags = [];
+      if (Array.isArray(n.tags) && n.tags.length > 0) {
+        noteTags = n.tags;
+      } else if (n.category && n.category.trim().length > 0) {
+        noteTags = [n.category];
+      } else {
+        noteTags = [noCategoryLabel];
+      }
+
+      const nextTags = noteTags.map(t => t.trim() === oldName ? nextName : t);
+      return { ...n, tags: nextTags, category: nextTags[0] || '' };
     });
   }
 
@@ -537,7 +611,7 @@ function renameGroup(type, oldName) {
   });
 }
 
-// Clear Group (unset source or category fields)
+// Clear Group (remove tag from note tags list)
 function clearGroup(type, oldName) {
   if (type === 'sources') {
     const noSourceLabel = getTranslation('noSource');
@@ -548,8 +622,17 @@ function clearGroup(type, oldName) {
   } else {
     const noCategoryLabel = getTranslation('noCategory');
     notes = notes.map(n => {
-      const match = (n.category || noCategoryLabel) === oldName;
-      return match ? { ...n, category: '' } : n;
+      let noteTags = [];
+      if (Array.isArray(n.tags) && n.tags.length > 0) {
+        noteTags = n.tags;
+      } else if (n.category && n.category.trim().length > 0) {
+        noteTags = [n.category];
+      } else {
+        noteTags = [noCategoryLabel];
+      }
+
+      const nextTags = noteTags.filter(t => t.trim() !== oldName);
+      return { ...n, tags: nextTags, category: nextTags[0] || '' };
     });
   }
 
@@ -566,7 +649,17 @@ function clearGroup(type, oldName) {
 function openDetailModal(item) {
   selectedNote = item;
   modalSourceVal.textContent = item.source || getTranslation('noSource');
-  modalCategoryVal.textContent = item.category || getTranslation('noCategory');
+  
+  let noteTags = [];
+  if (Array.isArray(item.tags) && item.tags.length > 0) {
+    noteTags = item.tags;
+  } else if (item.category && item.category.trim().length > 0) {
+    noteTags = [item.category];
+  } else {
+    noteTags = [getTranslation('noCategory')];
+  }
+  modalCategoryVal.textContent = noteTags.join(', ');
+  
   modalNoteContent.textContent = item.note;
   modalTimestampVal.textContent = item.createdAt ? new Date(item.createdAt).toLocaleString() : '';
   noteModalOverlay.style.display = 'flex';

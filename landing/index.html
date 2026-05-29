@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Jozve - Personal Knowledge Workspace</title>
+  <title>DropIt - Personal Knowledge Workspace</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -19,12 +19,23 @@
   <div id="app">
     <!-- Header -->
     <header class="topbar">
-      <div class="brand">Jozve</div>
+      <div class="brand" style="display: flex; align-items: center; gap: 8px;">
+        <svg class="brand-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="28" height="28" fill="none">
+          <path d="M50 12 C50 12, 85 45, 85 65 A35 35 0 1 1 15 65 C15 45, 50 12, 50 12 Z" fill="url(#dropGradLanding)" />
+          <defs>
+            <linearGradient id="dropGradLanding" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#c084fc" />
+              <stop offset="100%" stop-color="#6366f1" />
+            </linearGradient>
+          </defs>
+        </svg>
+        <span>DropIt</span>
+      </div>
 
       <nav class="top-nav">
         <a href="#features" id="navFeatures">Features</a>
         <a href="#how" id="navHow">How to use</a>
-        <a href="https://github.com/fatemehloni/Jozve" target="_blank" rel="noopener noreferrer" class="nav-github">
+        <a href="https://github.com/fatemehloni/DropIt" target="_blank" rel="noopener noreferrer" class="nav-github">
           <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
             <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.167 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.464-1.11-1.464-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.579.688.481C19.138 20.164 22 16.418 22 12c0-5.523-4.477-10-10-10z" />
           </svg>
@@ -64,12 +75,12 @@
           </h1>
 
           <p id="heroSubtitle" class="hero-subtitle">
-            Jozve is a Chrome extension designed to capture notes, research, and fleeting ideas without interrupting the natural flow of browsing.
+            DropIt is a Chrome extension designed to capture notes, research, and fleeting ideas without interrupting the natural flow of browsing.
           </p>
 
           <div class="hero-actions">
             <a href="#how" class="primary-btn" id="howBtn">How to use</a>
-            <a href="https://github.com/fatemehloni/Jozve" target="_blank" rel="noopener noreferrer" class="secondary-btn" id="githubBtn">
+            <a href="https://github.com/fatemehloni/DropIt" target="_blank" rel="noopener noreferrer" class="secondary-btn" id="githubBtn">
               <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
                 <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.167 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.464-1.11-1.464-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.579.688.481C19.138 20.164 22 16.418 22 12c0-5.523-4.477-10-10-10z" />
               </svg>
@@ -87,10 +98,10 @@
                 <span class="dot minimize"></span>
                 <span class="dot expand"></span>
               </div>
-              <div class="window-tab" id="windowTabTitle">Jozve Extension</div>
+              <div class="window-tab" id="windowTabTitle">DropIt Extension</div>
             </div>
             <div class="window-content">
-              <img id="heroPreview" src="./assets/create-note-en.png" alt="Jozve note creation screen" />
+              <img id="heroPreview" src="./assets/create-note-en.png" alt="DropIt note creation screen" />
             </div>
           </div>
         </div>
@@ -99,7 +110,7 @@
       <!-- Key Features Section (Grid Layout) -->
       <section id="features" class="features-grid-section">
         <div class="section-head centered">
-          <h2 id="screensTitle">Key features of Jozve</h2>
+          <h2 id="screensTitle">Key features of DropIt</h2>
         </div>
         
         <div class="features-container">
@@ -148,7 +159,7 @@
       <!-- App Showcase / Screenshots Section -->
       <section class="showcase">
         <div class="section-head centered">
-          <h2 id="screensSectionTitle">See Jozve in action</h2>
+          <h2 id="screensSectionTitle">See DropIt in action</h2>
         </div>
         
         <div class="screens-grid">
@@ -181,10 +192,10 @@
         </div>
       </section>
 
-      <!-- Why Jozve / Story Section -->
+      <!-- Why DropIt / Story Section -->
       <section class="story">
         <div class="story-card">
-          <h2 id="storyTitle">Why I built Jozve</h2>
+          <h2 id="storyTitle">Why I built DropIt</h2>
           <p id="storyText">
             I wanted a place to keep my notes organized by source and category—something that feels more like a digital notebook built around the way I actually read and browse. I also wanted it to be lightweight, offline, and always within reach—something that helps learning instead of interrupting it.
           </p>
@@ -214,7 +225,7 @@
             </li>
             <li>
               <div class="step-num">5</div>
-              <div class="step-content">Select the Jozve extension directory</div>
+              <div class="step-content">Select the DropIt extension directory</div>
             </li>
             <li>
               <div class="step-num">6</div>
@@ -229,7 +240,7 @@
         <div class="cta-card">
           <h2 id="ctaTitle">View project on GitHub</h2>
           <p class="cta-desc" id="ctaDesc">Interested in contributing, reading the code, or submitting an issue? Visit the GitHub repository.</p>
-          <a href="https://github.com/fatemehloni/Jozve" target="_blank" rel="noopener noreferrer" class="primary-btn">
+          <a href="https://github.com/fatemehloni/DropIt" target="_blank" rel="noopener noreferrer" class="primary-btn">
             <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
               <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.167 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.464-1.11-1.464-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.579.688.481C19.138 20.164 22 16.418 22 12c0-5.523-4.477-10-10-10z" />
             </svg>
@@ -241,7 +252,7 @@
       <!-- Footer -->
       <footer class="footer">
         <p id="footerText">Built for thinkers, readers, and curious minds</p>
-        <p class="copyright">&copy; 2026 Jozve. Open source under MIT License.</p>
+        <p class="copyright">&copy; 2026 DropIt. Open source under MIT License.</p>
       </footer>
     </main>
   </div>

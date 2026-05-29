@@ -1,13 +1,14 @@
 {
   "manifest_version": 3,
-  "name": "Jozve",
+  "name": "DropIt",
   "version": "1.0.0",
-  "description": "Offline-first personal knowledge capture extension",
+  "description": "Offline-first drop-based knowledge capture extension",
 
   "permissions": [
     "storage",
     "contextMenus",
-    "activeTab"
+    "activeTab",
+    "notifications"
   ],
 
   "host_permissions": [
@@ -19,7 +20,20 @@
   },
 
   "action": {
-    "default_popup": "index.html"
+    "default_popup": "index.html",
+    "default_icon": {
+      "16": "public/favicon.svg",
+      "32": "public/favicon.svg",
+      "48": "public/favicon.svg",
+      "128": "public/favicon.svg"
+    }
+  },
+
+  "icons": {
+    "16": "public/favicon.svg",
+    "32": "public/favicon.svg",
+    "48": "public/favicon.svg",
+    "128": "public/favicon.svg"
   },
 
   "web_accessible_resources": [

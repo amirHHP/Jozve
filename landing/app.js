@@ -5,11 +5,11 @@ const translations = {
     navFeatures: 'Features',
     navHow: 'How to use',
     heroTitle: 'Never lose an idea or note again. Capture it quickly, right where you work.',
-    heroSubtitle: 'Jozve is a Chrome extension designed to capture notes, research, and fleeting ideas without interrupting the natural flow of browsing.',
+    heroSubtitle: 'DropIt is a Chrome extension designed to capture notes, research, and fleeting ideas without interrupting the natural flow of browsing.',
     howBtn: 'How to use',
     githubBtn: 'GitHub',
-    windowTabTitle: 'Jozve Extension',
-    screensSectionTitle: 'See Jozve in action',
+    windowTabTitle: 'DropIt Extension',
+    screensSectionTitle: 'See DropIt in action',
     descQuick: 'Instantly capture any selected text, ideas, or annotations from your browser without leaving your active tab.',
     descLang: 'Complete dual-language Farsi (RTL) and English (LTR) workspace design supporting your preferred layout.',
     descTheme: 'Beautiful visual styling modes optimized for daylight note taking and night-time research sessions.',
@@ -17,7 +17,7 @@ const translations = {
     titleMock1: 'Quick Popup',
     titleMock2: 'Dashboard Light',
     titleMock3: 'Dashboard Dark',
-    storyTitle: 'Why I built Jozve',
+    storyTitle: 'Why I built DropIt',
     storyText: 'I wanted a place to keep my notes organized by source and category—something that feels more like a digital notebook built around the way I actually read and browse. I also wanted it to be lightweight, offline, and always within reach—something that helps learning instead of interrupting it.',
     howTitle: 'How to use',
     ctaTitle: 'View project on GitHub',
@@ -34,7 +34,7 @@ const translations = {
       'Open Chrome Extensions (chrome://extensions)',
       'Enable Developer Mode in the top right',
       'Click "Load unpacked" button',
-      'Select the Jozve extension directory',
+      'Select the DropIt extension directory',
       'Start capturing your knowledge effortlessly!'
     ],
     images: {
@@ -50,12 +50,12 @@ const translations = {
     eyebrow: 'فضای شخصی دانش',
     navFeatures: 'ویژگی‌ها',
     navHow: 'روش استفاده',
-    heroTitle: 'با جزوه، هیچ ایده یا یادداشتی را از دست ندهید؛ سریع ثبت کنید و همیشه کنار خودتان داشته باشید.',
-    heroSubtitle: 'جزوه افزونه‌ای است که برای ثبت سریع یادداشت‌ها، تحقیقات و ایده‌های لحظه‌ای طراحی کردم؛ بدون اینکه جریان طبیعی مطالعه و وب‌گردی را مختل کند.',
+    heroTitle: 'با DropIt، هیچ ایده یا یادداشتی را از دست ندهید؛ سریع ثبت کنید و همیشه کنار خودتان داشته باشید.',
+    heroSubtitle: 'DropIt افزونه‌ای است که برای ثبت سریع یادداشت‌ها، تحقیقات و ایده‌های لحظه‌ای طراحی کردم؛ بدون اینکه جریان طبیعی مطالعه و وب‌گردی را مختل کند.',
     howBtn: 'روش استفاده',
     githubBtn: 'گیت‌هاب',
-    windowTabTitle: 'افزونه جزوه',
-    screensSectionTitle: 'جزوه در عمل',
+    windowTabTitle: 'افزونه DropIt',
+    screensSectionTitle: 'DropIt در عمل',
     descQuick: 'هر متن انتخابی، ایده یا حاشیه‌نویسی را فوراً از مرورگر خود بدون خروج از تب فعال ثبت کنید.',
     descLang: 'پشتیبانی کامل از دو زبان فارسی (راست‌چین) و انگلیسی (چپ‌چین) برای راحتی کار شما.',
     descTheme: 'حالت‌های بصری زیبا و بهینه‌سازی شده برای یادداشت‌برداری در روز و مطالعه در شب.',
@@ -63,7 +63,7 @@ const translations = {
     titleMock1: 'پنجره سریع ثبت یادداشت',
     titleMock2: 'داشبورد - پوسته روشن',
     titleMock3: 'داشبورد - پوسته تاریک',
-    storyTitle: 'چرا جزوه را ساختم',
+    storyTitle: 'چرا DropIt را ساختم',
     storyText: 'همیشه دوست داشتم جایی داشته باشم که یادداشت‌هایم را بر اساس منبع و دسته‌بندی کنار هم نگه دارم؛ چیزی شبیه یک دفترچه یادداشت دیجیتال که واقعاً با سبک مطالعه و وب‌گردی من جور باشد. همین‌طور برایم مهم بود که این ابزار سبک، آفلاین و همیشه دم دست باشد؛ چیزی که وسط یادگیری مزاحم نشود، بلکه کمکم کند.',
     howTitle: 'روش استفاده',
     ctaTitle: 'مشاهده پروژه در گیت‌هاب',
@@ -80,7 +80,7 @@ const translations = {
       'بخش افزونه‌های کروم (chrome://extensions) را باز کنید',
       'گزینه Developer Mode را در بالا سمت راست فعال کنید',
       'روی دکمه "Load unpacked" کلیک کنید',
-      'پوشه افزونه جزوه را انتخاب کنید',
+      'پوشه افزونه DropIt را انتخاب کنید',
       'شروع به ثبت بدون دغدغه دانش خود کنید!'
     ],
     images: {
@@ -155,11 +155,11 @@ const applyLanguage = () => {
   if (currentLang === 'fa') {
     document.body.classList.add('rtl');
     document.documentElement.lang = 'fa';
-    document.querySelector('.brand').textContent = 'جزوه';
+    document.querySelector('.brand span').textContent = 'DropIt';
   } else {
     document.body.classList.remove('rtl');
     document.documentElement.lang = 'en';
-    document.querySelector('.brand').textContent = 'Jozve';
+    document.querySelector('.brand span').textContent = 'DropIt';
   }
 };
 

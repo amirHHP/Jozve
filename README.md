@@ -1,6 +1,6 @@
-# Jozve (جزوه) - Personal Knowledge Workspace
+# DropIt - Personal Knowledge Workspace
 
-Jozve is an offline-first Chrome Extension designed to capture notes, research, and fleeting ideas quickly right where you work, without interrupting the natural flow of browsing.
+DropIt is an offline-first Chrome Extension designed to capture notes, research, and fleeting ideas quickly right where you work, without interrupting the natural flow of browsing.
 
 ## Features
 
@@ -19,7 +19,7 @@ To run this extension locally in your browser:
 3. Enable **Developer mode** using the toggle switch in the top-right corner.
 4. Click the **Load unpacked** button in the top-left corner.
 5. Select the root folder of this repository (containing `manifest.json`).
-6. The Jozve extension icon should now appear in your browser's extension list!
+6. The DropIt extension icon should now appear in your browser's extension list!
 
 ## Landing Page & Deployment
 
@@ -32,4 +32,4 @@ This project is configured with a GitHub Actions workflow (`.github/workflows/de
 To enable this:
 1. Go to your repository settings on GitHub: **Settings > Pages**.
 2. Under **Build and deployment > Source**, select **GitHub Actions** (instead of *Deploy from a branch*).
-3. The next time you push to the `main` branch, the landing page will automatically deploy to `https://<username>.github.io/Jozve/`.
+3. The next time you push to the `main` branch, the landing page will automatically deploy to `https://<username>.github.io/DropIt/`.
