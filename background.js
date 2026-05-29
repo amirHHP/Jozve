@@ -89,7 +89,8 @@ Respond ONLY with a valid JSON array of strings containing the tags, e.g. ["tag1
 Text:
 ${text}`;
 
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+  const cleanModel = model.startsWith('models/') ? model : `models/${model}`;
+  const url = `https://generativelanguage.googleapis.com/v1beta/${cleanModel}:generateContent?key=${apiKey}`;
   
   const response = await fetch(url, {
     method: 'POST',

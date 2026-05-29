@@ -407,13 +407,83 @@ function deleteNote(id) {
 // Settings Forms
 function loadSettingsIntoForm() {
   storage.get(['geminiApiKey', 'geminiModel'], res => {
-    apiKeyInput.value = res.geminiApiKey || '';
+    const apiKey = res.geminiApiKey || '';
+    apiKeyInput.value = apiKey;
+    testStatus.textContent = '';
+    testStatus.className = 'status-msg';
+    
+    if (apiKey.trim().length > 0) {
+      loadDynamicModels(apiKey.trim());
+    } else {
+      populateStaticFallbackModels();
+    }
+  });
+}
+
+function populateStaticFallbackModels() {
+  modelSelect.innerHTML = `
+    <option value="gemini-2.5-flash">Gemini 2.5 Flash (Recommended)</option>
+    <option value="gemini-2.5-pro">Gemini 2.5 Pro</option>
+    <option value="gemini-1.5-flash">Gemini 1.5 Flash</option>
+    <option value="gemini-1.5-pro">Gemini 1.5 Pro</option>
+  `;
+  storage.get('geminiModel', res => {
     if (res.geminiModel) {
       modelSelect.value = res.geminiModel;
     }
-    testStatus.textContent = '';
-    testStatus.className = 'status-msg';
   });
+}
+
+async function loadDynamicModels(apiKey) {
+  const currentSelectedValue = modelSelect.value;
+  modelSelect.innerHTML = `<option value="">${currentLanguage === 'fa' ? 'در حال بارگذاری مدل‌ها...' : 'Loading models...'}</option>`;
+  modelSelect.disabled = true;
+
+  try {
+    const url = `https://generativelanguage.googleapis.com/v1beta/models?key=${apiKey}`;
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`API status ${response.status}`);
+    }
+    const data = await response.json();
+    const models = data.models || [];
+
+    const genModels = models.filter(m => 
+      m.supportedGenerationMethods && 
+      m.supportedGenerationMethods.includes('generateContent')
+    );
+
+    if (genModels.length === 0) {
+      throw new Error("No text generation models found");
+    }
+
+    modelSelect.innerHTML = '';
+    genModels.forEach(m => {
+      const option = document.createElement('option');
+      option.value = m.name;
+      option.textContent = m.displayName || m.name.replace('models/', '');
+      modelSelect.appendChild(option);
+    });
+
+    storage.get('geminiModel', res => {
+      const savedModel = res.geminiModel;
+      if (savedModel && Array.from(modelSelect.options).some(o => o.value === savedModel)) {
+        modelSelect.value = savedModel;
+      } else if (currentSelectedValue && Array.from(modelSelect.options).some(o => o.value === currentSelectedValue)) {
+        modelSelect.value = currentSelectedValue;
+      } else {
+        const defaultOpt = Array.from(modelSelect.options).find(o => o.value.includes('gemini-2.5-flash'));
+        if (defaultOpt) {
+          modelSelect.value = defaultOpt.value;
+        }
+      }
+    });
+
+    modelSelect.disabled = false;
+  } catch (err) {
+    populateStaticFallbackModels();
+    modelSelect.disabled = false;
+  }
 }
 
 // Test Gemini Connection
@@ -433,7 +503,8 @@ async function testConnection() {
   testConnBtn.disabled = true;
 
   try {
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${key}`;
+    const cleanModel = model.startsWith('models/') ? model : `models/${model}`;
+    const url = `https://generativelanguage.googleapis.com/v1beta/${cleanModel}:generateContent?key=${key}`;
     const response = await fetch(url, {
       method: 'POST',
       headers: {
@@ -489,7 +560,8 @@ Respond ONLY with a valid JSON array of strings containing the tags, e.g. ["tag1
 Text:
 ${text}`;
 
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+  const cleanModel = model.startsWith('models/') ? model : `models/${model}`;
+  const url = `https://generativelanguage.googleapis.com/v1beta/${cleanModel}:generateContent?key=${apiKey}`;
   
   const response = await fetch(url, {
     method: 'POST',
@@ -665,5 +737,17 @@ saveManualNoteBtn.addEventListener('click', saveManualNote);
 
 // Dynamic Tag Filter Search
 tagSearchInput.addEventListener('input', renderTags);
+
+// Fetch Gemini models as the user types their API key
+let debounceTimer;
+apiKeyInput.addEventListener('input', () => {
+  clearTimeout(debounceTimer);
+  debounceTimer = setTimeout(() => {
+    const key = apiKeyInput.value.trim();
+    if (key.length > 20) {
+      loadDynamicModels(key);
+    }
+  }, 800);
+});
 
 init();
