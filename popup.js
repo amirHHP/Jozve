@@ -67,6 +67,29 @@ function isPersianText(text) {
   return persianRegex.test(text);
 }
 
+function getTagColor(tagName) {
+  if (!tagName) {
+    return { primary: '#8b5cf6', lightBg: 'rgba(139, 92, 246, 0.06)', lightBorder: 'rgba(139, 92, 246, 0.12)' };
+  }
+  const colors = [
+    { primary: '#a78bfa', lightBg: 'rgba(167, 139, 250, 0.06)', lightBorder: 'rgba(167, 139, 250, 0.12)' }, // purple
+    { primary: '#60a5fa', lightBg: 'rgba(96, 165, 250, 0.06)', lightBorder: 'rgba(96, 165, 250, 0.12)' }, // blue
+    { primary: '#34d399', lightBg: 'rgba(52, 211, 153, 0.06)', lightBorder: 'rgba(52, 211, 153, 0.12)' }, // green
+    { primary: '#f87171', lightBg: 'rgba(248, 113, 113, 0.06)', lightBorder: 'rgba(248, 113, 113, 0.12)' }, // red
+    { primary: '#fbbf24', lightBg: 'rgba(251, 191, 36, 0.06)', lightBorder: 'rgba(251, 191, 36, 0.12)' }, // amber
+    { primary: '#f472b6', lightBg: 'rgba(244, 114, 182, 0.06)', lightBorder: 'rgba(244, 114, 182, 0.12)' }, // pink
+    { primary: '#22d3ee', lightBg: 'rgba(34, 211, 238, 0.06)', lightBorder: 'rgba(34, 211, 238, 0.12)' }, // cyan
+    { primary: '#a3e635', lightBg: 'rgba(163, 230, 53, 0.06)', lightBorder: 'rgba(163, 230, 53, 0.12)' }  // lime
+  ];
+  
+  let hash = 0;
+  for (let i = 0; i < tagName.length; i++) {
+    hash = tagName.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  const index = Math.abs(hash) % colors.length;
+  return colors[index];
+}
+
 function getStorage() {
   if (typeof chrome !== 'undefined' && chrome.storage && chrome.storage.local) {
     return {
@@ -279,19 +302,18 @@ function renderTags() {
   filteredTags.forEach(tagName => {
     const noteCount = tagGroups[tagName].length;
     const countText = `${noteCount} ${noteCount === 1 ? t.noteCount : t.notesCount}`;
+    const color = getTagColor(tagName);
 
     const card = document.createElement('div');
     card.className = 'tag-card';
+    card.style.setProperty('--tag-color', color.primary);
+    card.style.setProperty('--tag-bg', color.lightBg);
+    card.style.setProperty('--tag-border', color.lightBorder);
+    
     card.innerHTML = `
       <div class="tag-icon" style="display: flex; align-items: center; height: 20px;">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="16" height="16" fill="none">
-          <path d="M50 12 C50 12, 85 45, 85 65 A35 35 0 1 1 15 65 C15 45, 50 12, 50 12 Z" fill="url(#dropGradCard)" />
-          <defs>
-            <linearGradient id="dropGradCard" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#c084fc" />
-              <stop offset="100%" stop-color="#6366f1" />
-            </linearGradient>
-          </defs>
+          <path d="M50 12 C50 12, 85 45, 85 65 A35 35 0 1 1 15 65 C15 45, 50 12, 50 12 Z" fill="var(--tag-color)" />
         </svg>
       </div>
       <div class="tag-name" title="${tagName}">${tagName}</div>
@@ -313,18 +335,13 @@ function renderNotesForTag() {
   const tagGroups = getAggregatedTags();
   const tagNotes = tagGroups[activeTag] || [];
 
+  const activeColor = getTagColor(activeTag);
   activeTagTitle.innerHTML = `
-    <span style="display: inline-flex; align-items: center; gap: 6px;">
+    <span style="display: inline-flex; align-items: center; gap: 6px; color: ${activeColor.primary};">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="18" height="18" fill="none">
-        <path d="M50 12 C50 12, 85 45, 85 65 A35 35 0 1 1 15 65 C15 45, 50 12, 50 12 Z" fill="url(#dropGradActiveTag)" />
-        <defs>
-          <linearGradient id="dropGradActiveTag" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#c084fc" />
-            <stop offset="100%" stop-color="#6366f1" />
-          </linearGradient>
-        </defs>
+        <path d="M50 12 C50 12, 85 45, 85 65 A35 35 0 1 1 15 65 C15 45, 50 12, 50 12 Z" fill="currentColor" />
       </svg>
-      <span>${activeTag}</span>
+      <span style="color: var(--text-primary);">${activeTag}</span>
     </span>
   `;
   const t = translations[currentLanguage];

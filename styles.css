@@ -708,9 +708,9 @@ input, textarea, button {
 }
 
 .category-pill {
-  background: var(--accent-light) !important;
-  color: var(--accent) !important;
-  border: 1px solid rgba(139, 92, 246, 0.2);
+  background: var(--pill-bg, var(--accent-light)) !important;
+  color: var(--pill-color, var(--accent)) !important;
+  border: 1px solid var(--pill-border, rgba(139, 92, 246, 0.2)) !important;
   padding: 5px 12px !important;
   border-radius: 99px !important;
   font-size: 11px !important;
@@ -910,9 +910,9 @@ input, textarea, button {
 
 .note-modal-category {
   align-self: flex-start;
-  background: var(--accent-light);
-  color: var(--accent);
-  border: 1px solid rgba(139, 92, 246, 0.2);
+  background: var(--pill-bg, var(--accent-light));
+  color: var(--pill-color, var(--accent));
+  border: 1px solid var(--pill-border, rgba(139, 92, 246, 0.2));
   padding: 6px 14px;
   border-radius: 99px;
   margin-bottom: 24px;
@@ -1082,20 +1082,20 @@ input, textarea, button {
 .tags-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
+  gap: 8px;
   padding: 4px 0;
 }
 
 .tag-card {
-  background: var(--bg-panel);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-md);
-  padding: 14px;
+  background: var(--tag-bg, var(--bg-panel));
+  border: 1px solid var(--tag-border, var(--border-color));
+  border-radius: var(--radius-sm);
+  padding: 8px 12px;
   cursor: pointer;
   transition: all var(--transition-normal);
   display: flex;
-  flex-direction: column;
-  gap: 6px;
+  align-items: center;
+  gap: 8px;
   position: relative;
   overflow: hidden;
 }
@@ -1105,17 +1105,22 @@ input, textarea, button {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 3px;
-  background: var(--accent-gradient);
-  opacity: 0;
-  transition: opacity var(--transition-normal);
+  width: 3px;
+  height: 100%;
+  background: var(--tag-color, var(--accent-gradient));
+  opacity: 0.35;
+  transition: all var(--transition-normal);
+}
+
+.rtl .tag-card::before {
+  left: auto;
+  right: 0;
 }
 
 .tag-card:hover {
-  transform: translateY(-3px);
-  border-color: var(--accent-hover);
-  background: var(--bg-panel-solid);
+  transform: translateY(-1px);
+  border-color: var(--tag-color, var(--accent-hover));
+  background: var(--tag-bg, var(--bg-panel-solid));
   box-shadow: var(--shadow-sm);
 }
 
@@ -1124,24 +1129,36 @@ input, textarea, button {
 }
 
 .tag-icon {
-  font-size: 18px;
-  font-weight: 800;
-  color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
 }
 
 .tag-name {
-  font-size: 13.5px;
-  font-weight: 700;
+  font-size: 13px;
+  font-weight: 600;
   color: var(--text-primary);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  flex: 1;
+  min-width: 0;
+  text-align: inherit;
 }
 
 .tag-count {
-  font-size: 11px;
-  color: var(--text-muted);
-  font-weight: 500;
+  font-size: 10px;
+  color: var(--tag-color, var(--text-muted));
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2px 6px;
+  border-radius: 99px;
+  flex-shrink: 0;
+}
+
+.light .tag-count {
+  background: rgba(0, 0, 0, 0.04);
 }
 
 .popup-notes-list {

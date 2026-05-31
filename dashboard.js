@@ -67,6 +67,29 @@ function isPersianText(text) {
   return persianRegex.test(text);
 }
 
+function getTagColor(tagName) {
+  if (!tagName) {
+    return { primary: '#8b5cf6', lightBg: 'rgba(139, 92, 246, 0.06)', lightBorder: 'rgba(139, 92, 246, 0.12)' };
+  }
+  const colors = [
+    { primary: '#a78bfa', lightBg: 'rgba(167, 139, 250, 0.06)', lightBorder: 'rgba(167, 139, 250, 0.12)' }, // purple
+    { primary: '#60a5fa', lightBg: 'rgba(96, 165, 250, 0.06)', lightBorder: 'rgba(96, 165, 250, 0.12)' }, // blue
+    { primary: '#34d399', lightBg: 'rgba(52, 211, 153, 0.06)', lightBorder: 'rgba(52, 211, 153, 0.12)' }, // green
+    { primary: '#f87171', lightBg: 'rgba(248, 113, 113, 0.06)', lightBorder: 'rgba(248, 113, 113, 0.12)' }, // red
+    { primary: '#fbbf24', lightBg: 'rgba(251, 191, 36, 0.06)', lightBorder: 'rgba(251, 191, 36, 0.12)' }, // amber
+    { primary: '#f472b6', lightBg: 'rgba(244, 114, 182, 0.06)', lightBorder: 'rgba(244, 114, 182, 0.12)' }, // pink
+    { primary: '#22d3ee', lightBg: 'rgba(34, 211, 238, 0.06)', lightBorder: 'rgba(34, 211, 238, 0.12)' }, // cyan
+    { primary: '#a3e635', lightBg: 'rgba(163, 230, 53, 0.06)', lightBorder: 'rgba(163, 230, 53, 0.12)' }  // lime
+  ];
+  
+  let hash = 0;
+  for (let i = 0; i < tagName.length; i++) {
+    hash = tagName.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  const index = Math.abs(hash) % colors.length;
+  return colors[index];
+}
+
 function getStorage() {
   if (typeof chrome !== 'undefined' && chrome.storage && chrome.storage.local) {
     return {
@@ -451,6 +474,10 @@ function renderNotesGrid() {
       const pill = document.createElement('div');
       pill.className = 'category-pill';
       pill.textContent = tag;
+      const color = getTagColor(tag);
+      pill.style.setProperty('--pill-color', color.primary);
+      pill.style.setProperty('--pill-bg', color.lightBg);
+      pill.style.setProperty('--pill-border', color.lightBorder);
       tagsContainer.appendChild(pill);
     });
     header.appendChild(tagsContainer);
@@ -688,6 +715,11 @@ function openDetailModal(item) {
     noteTags = [getTranslation('noCategory')];
   }
   modalCategoryVal.textContent = noteTags.join(', ');
+  const mainTag = noteTags[0] || getTranslation('noCategory');
+  const modalColor = getTagColor(mainTag);
+  modalCategoryVal.style.setProperty('--pill-color', modalColor.primary);
+  modalCategoryVal.style.setProperty('--pill-bg', modalColor.lightBg);
+  modalCategoryVal.style.setProperty('--pill-border', modalColor.lightBorder);
   
   modalNoteContent.textContent = item.note;
   if (isPersianText(item.note)) {
