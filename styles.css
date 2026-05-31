@@ -957,8 +957,8 @@ input, textarea, button {
    ========================================================================== */
 
 .popup-app {
-  width: 390px;
-  height: 580px;
+  width: 100%;
+  height: 100vh;
   background-color: var(--bg-base);
   color: var(--text-primary);
   padding: 20px;

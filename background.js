@@ -4,7 +4,17 @@ chrome.runtime.onInstalled.addListener(() => {
     title: "Drop it!",
     contexts: ["selection"]
   });
+
+  if (chrome.sidePanel && chrome.sidePanel.setPanelBehavior) {
+    chrome.sidePanel.setPanelBehavior({ openPanelOnActionClick: true })
+      .catch((error) => console.error("Error setting side panel behavior:", error));
+  }
 });
+
+if (typeof chrome !== 'undefined' && chrome.sidePanel && chrome.sidePanel.setPanelBehavior) {
+  chrome.sidePanel.setPanelBehavior({ openPanelOnActionClick: true })
+    .catch((error) => console.error("Error setting side panel behavior at top level:", error));
+}
 
 chrome.contextMenus.onClicked.addListener((info, tab) => {
   if (info.menuItemId === "save-note") {

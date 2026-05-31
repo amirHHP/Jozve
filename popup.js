@@ -61,6 +61,12 @@ const translations = {
   }
 };
 
+function isPersianText(text) {
+  if (!text) return false;
+  const persianRegex = /[\u0600-\u06FF\uFB50-\uFDFF\uFE70-\uFEFF]/;
+  return persianRegex.test(text);
+}
+
 function getStorage() {
   if (typeof chrome !== 'undefined' && chrome.storage && chrome.storage.local) {
     return {
@@ -159,6 +165,9 @@ function showView(viewName) {
     loadSettingsIntoForm();
   } else if (viewName === 'addNote') {
     manualNoteText.value = '';
+    manualNoteText.removeAttribute('dir');
+    manualNoteText.style.textAlign = '';
+    manualNoteText.style.fontFamily = '';
     manualNoteSource.value = '';
     saveManualNoteBtn.disabled = false;
     saveManualNoteBtn.textContent = translations[currentLanguage].saveManualNoteBtn;
@@ -332,6 +341,16 @@ function renderNotesForTag() {
     const textP = document.createElement('p');
     textP.className = 'popup-note-text';
     textP.textContent = item.note;
+    
+    if (isPersianText(item.note)) {
+      textP.dir = 'rtl';
+      textP.style.textAlign = 'right';
+      textP.style.fontFamily = 'var(--font-fa)';
+    } else {
+      textP.dir = 'ltr';
+      textP.style.textAlign = 'left';
+      textP.style.fontFamily = 'var(--font-en)';
+    }
     
     // Toggle expand/collapse on text click
     textP.addEventListener('click', () => {
@@ -737,6 +756,19 @@ saveManualNoteBtn.addEventListener('click', saveManualNote);
 
 // Dynamic Tag Filter Search
 tagSearchInput.addEventListener('input', renderTags);
+
+// Dynamic direction for manual note textarea based on text content
+manualNoteText.addEventListener('input', () => {
+  if (isPersianText(manualNoteText.value)) {
+    manualNoteText.dir = 'rtl';
+    manualNoteText.style.textAlign = 'right';
+    manualNoteText.style.fontFamily = 'var(--font-fa)';
+  } else {
+    manualNoteText.dir = 'ltr';
+    manualNoteText.style.textAlign = 'left';
+    manualNoteText.style.fontFamily = 'var(--font-en)';
+  }
+});
 
 // Fetch Gemini models as the user types their API key
 let debounceTimer;

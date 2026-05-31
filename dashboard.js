@@ -61,6 +61,12 @@ const translations = {
   }
 };
 
+function isPersianText(text) {
+  if (!text) return false;
+  const persianRegex = /[\u0600-\u06FF\uFB50-\uFDFF\uFE70-\uFEFF]/;
+  return persianRegex.test(text);
+}
+
 function getStorage() {
   if (typeof chrome !== 'undefined' && chrome.storage && chrome.storage.local) {
     return {
@@ -456,6 +462,17 @@ function renderNotesGrid() {
     const noteText = document.createElement('p');
     noteText.className = 'note-content';
     noteText.textContent = item.note;
+    
+    if (isPersianText(item.note)) {
+      noteText.dir = 'rtl';
+      noteText.style.textAlign = 'right';
+      noteText.style.fontFamily = 'var(--font-fa)';
+    } else {
+      noteText.dir = 'ltr';
+      noteText.style.textAlign = 'left';
+      noteText.style.fontFamily = 'var(--font-en)';
+    }
+    
     body.appendChild(noteText);
     card.appendChild(body);
 
@@ -503,6 +520,9 @@ function closeComposer() {
   composerSource.value = '';
   composerCategory.value = '';
   composerNote.value = '';
+  composerNote.removeAttribute('dir');
+  composerNote.style.textAlign = '';
+  composerNote.style.fontFamily = '';
   editingId = null;
   updateUI();
 }
@@ -526,6 +546,15 @@ function startEditingNote(item) {
   composerCategory.value = noteTags.join(', ');
   
   composerNote.value = item.note || '';
+  if (isPersianText(item.note)) {
+    composerNote.dir = 'rtl';
+    composerNote.style.textAlign = 'right';
+    composerNote.style.fontFamily = 'var(--font-fa)';
+  } else {
+    composerNote.dir = 'ltr';
+    composerNote.style.textAlign = 'left';
+    composerNote.style.fontFamily = 'var(--font-en)';
+  }
   openComposer();
   updateUI();
   window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -661,6 +690,15 @@ function openDetailModal(item) {
   modalCategoryVal.textContent = noteTags.join(', ');
   
   modalNoteContent.textContent = item.note;
+  if (isPersianText(item.note)) {
+    modalNoteContent.dir = 'rtl';
+    modalNoteContent.style.textAlign = 'right';
+    modalNoteContent.style.fontFamily = 'var(--font-fa)';
+  } else {
+    modalNoteContent.dir = 'ltr';
+    modalNoteContent.style.textAlign = 'left';
+    modalNoteContent.style.fontFamily = 'var(--font-en)';
+  }
   modalTimestampVal.textContent = item.createdAt ? new Date(item.createdAt).toLocaleString() : '';
   noteModalOverlay.style.display = 'flex';
 }
@@ -783,6 +821,19 @@ quickAddBtn.addEventListener('click', () => {
 composerCollapsedBtn.addEventListener('click', openComposer);
 composerCancelBtn.addEventListener('click', closeComposer);
 composerSaveBtn.addEventListener('click', saveNote);
+
+// Dynamic direction for composer textarea based on text content
+composerNote.addEventListener('input', () => {
+  if (isPersianText(composerNote.value)) {
+    composerNote.dir = 'rtl';
+    composerNote.style.textAlign = 'right';
+    composerNote.style.fontFamily = 'var(--font-fa)';
+  } else {
+    composerNote.dir = 'ltr';
+    composerNote.style.textAlign = 'left';
+    composerNote.style.fontFamily = 'var(--font-en)';
+  }
+});
 
 // Close modals triggers
 modalCloseBtn.addEventListener('click', closeDetailModal);
